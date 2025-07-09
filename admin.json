@@ -20,9 +20,24 @@
             "component": "form"
         },
         {
+            "title": "审核表单",
+            "path": "/app/pluginExample/admin/Examine/index",
+            "component": "examine"
+        },
+        {
             "title": "表格",
             "path": "/app/pluginExample/admin/Table/index",
             "component": "table"
+        },
+        {
+            "title": "图片",
+            "path": "/app/pluginExample/admin/Images/index",
+            "component": "images"
+        },
+        {
+            "title": "信息展示",
+            "path": "/app/pluginExample/admin/Info/index",
+            "component": "info"
         },
         {
             "title": "配置",
