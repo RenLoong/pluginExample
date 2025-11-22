@@ -3,7 +3,9 @@
 namespace plugin\pluginExample\app\admin\controller;
 
 use app\Basic;
+use app\expose\build\builder\ActionBuilder;
 use app\expose\build\builder\FormBuilder;
+use app\expose\enum\Action;
 use app\expose\enum\State;
 use support\Request;
 
@@ -12,6 +14,37 @@ class FormController extends Basic
     public function index(Request $request)
     {
         $builder = new FormBuilder();
+        $action = new ActionBuilder();
+        $action->add('询问获取远程数据', [
+            'path' => '/app/pluginExample/admin/Form/remote_data',
+            'model' => Action::COMFIRM['value'],
+            'props' => [
+                'type' => 'primary',
+                'title' => '询问获取远程数据'
+            ],
+            'component' => [
+                'name' => 'button',
+                'props' => [
+                    'type' => 'primary',
+                    'size' => 'small'
+                ]
+            ]
+        ]);
+        $action->add('直接获取远程数据', [
+            'path' => '/app/pluginExample/admin/Form/remote_data',
+            'model' => Action::REQUEST['value'],
+            'props' => [
+                'type' => 'primary',
+                'title' => '直接获取远程数据'
+            ],
+            'component' => [
+                'name' => 'button',
+                'props' => [
+                    'type' => 'primary',
+                    'size' => 'small'
+                ]
+            ]
+        ]);
         $builder->add('input', 'Input', 'input', '', [
             'col' => [
                 'xs' => 24,
@@ -24,7 +57,7 @@ class FormController extends Basic
                 'placeholder' => 'Input Placeholder',
                 'clearable' => true
             ]
-        ]);
+        ], $action);
         $builder->add('select', 'Select', 'select', '', [
             'col' => [
                 'xs' => 24,
@@ -137,5 +170,15 @@ class FormController extends Basic
             ]
         ];
         return $this->resData($options);
+    }
+    public function remote_data(Request $request)
+    {
+        $action = new ActionBuilder();
+        $action->setData([
+            'input' => '远程获取数据',
+            'select' => '选项一'
+        ]);
+        $action->setDataAction('append');
+        return $this->resData($action);
     }
 }
